@@ -14,6 +14,14 @@ public class _2337 {
         System.out.println(canChange(start, target));
     }
 
+    /**
+     * 每次找到start、target中不为_的字符
+     * 比较，
+     * 若不相同，那么false
+     * 若相同，那么比较字符下标是否能够通过移动得到target
+     *
+     */
+
     public static boolean canChange(String start, String target) {
 
         if (start.length() == target.length() && start.isEmpty()) {
