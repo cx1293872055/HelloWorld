@@ -29,6 +29,18 @@ vim target.file
 - CTRL f 下一页
 - CTRL b 上一页
 
+- o 在下一行新起一行insert
+- O 在上一行新起一行insert
+
+- m* 标记当前行
+- ‘* 跳到标记行
+
+- q* 宏录制
+  - 再次q 结束宏录制
+- @* 使用宏
+
+- CTRL-w h j k l 分屏移动光标
+- CTRL-w H J K L 分屏移动当前分屏
 
 # COMMAND
 
@@ -38,6 +50,31 @@ vim target.file
 - N 上一个目标
 
 - read filename 读取文件内容到当前行
+
+- marks 查看标记list
+- delmarks * 删除某个标记
+- delmarks! 删除所有标记
+
+- . , $ % s/***/---/g range 替换*** 变成--- g:替换全部 
+
+- e filename 左右分屏打开文件
+- new filename 左右分屏新建文件
+- vs filename 左右分屏
+- sp filename 上下分屏
+
+delete
+- dw 删除单词
+- daw
+- dW 删除空格分割的单词
+change
+- cw 删除单词 并进入insert
+- cW 删除空格分割的单词，并进入insert
+- ciw 
+- caw
+yank
+- yw 复制单词
+- yW 复制空格分割的单词
+
 
 # VISUAL BLOCK
 
