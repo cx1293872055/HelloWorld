@@ -44,6 +44,17 @@ package kotlinFisrt
 //
 
 
+
+// 使用inline关键字 可以使传递的lambda表达式内联到调用的方法中
+// 这会增加字节码的体积
+// 内联：我的理解是，会在编译阶段把lambda的实现直接应用到接收到lambda方法中
+// noinline/crossinline
+// 用来
+// - 标记不会内联
+// - 对于标注的参数来说，在调用该lambda的任何地方都会被内联
+// 都不能使用非局部return
+// 非局部return: 想要在使用该lambda时直接返回当前方法的return
+// 局部return: 仅仅是返回当前lambda到调用方
 inline fun invokeTwo(
   n: Int,
   action1: (Int) -> Unit,
@@ -54,7 +65,7 @@ inline fun invokeTwo(
   action2(n)
 
   println("exit invokeTwo $n")
-  return {_: Int -> println("lambda returned from invokeTwo")}
+  return {input: Int ->action2.invoke(input)}
 }
 
 fun report(n: Int) {
@@ -69,7 +80,15 @@ fun report(n: Int) {
 }
 
 fun callInvokeTwo() {
-  invokeTwo(1, {i -> report(i)},{ i -> report(i)} )
+  invokeTwo(1,
+            {i ->
+              if(i ==1) return
+              report(i)
+            },
+            {i ->
+              // if(i == 2) return
+              report(i)
+            })
 }
 
 
