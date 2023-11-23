@@ -2,9 +2,8 @@ package kotlinFisrt
 
 import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import java.net.URL
-import kotlin.system.measureTimeMillis
 
 /**
  * @author chenxin
@@ -56,8 +55,52 @@ class Airport(
 // }
 
 
+// fun main() {
+//   runBlocking {
+//     val exceptionHandler = CoroutineExceptionHandler {context, ex ->
+//       println("Caught: ${context[CoroutineName]} ${ex.message?.substring(0..28)}")
+//     }
+//     try {
+//
+//       val airportCodes = listOf("LAX", "SF-", "PD", "SEA")
+//
+//       val jobs: List<Job> = airportCodes.map {anAirportCode ->
+//         launch(Dispatchers.IO + exceptionHandler +SupervisorJob()) {
+//           val airport = Airport.getAirportData(anAirportCode)
+//           println("${airport?.code} deplay: ${airport?.delay}")
+//         }
+//       }
+//
+//       jobs.forEach {it.join()}
+//       jobs.forEach {println("Cancelled: ${it.isCancelled}")}
+//
+//     } catch(ex: Exception) {
+//       println("ERROR:${ex.message}")
+//
+//     }
+//   }
+// }
+//
+//
 fun main() {
-  val airportCodes = listOf("LAX", "SF-", "PD", "SEA")
+  runBlocking {
+    val airportCodes = listOf("LAX", "SF-", "PD", "SEA")
 
-  val jobs: List<Job> = air
+    val airportData = airportCodes.map {
+      anAirportCode ->
+      async(Dispatchers.IO + SupervisorJob()) {
+        Airport.getAirportData(anAirportCode)
+      }
+    }
+
+    for(airportData in airportData) {
+      try {
+        val airport = airportData.await()
+
+        println("${airport?.code} ${airport?.delay}")
+      } catch(ex: Exception) {
+        println("Error : ${ex.message?.substring(0..28)}")
+      }
+    }
+  }
 }
