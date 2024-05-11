@@ -7,11 +7,19 @@ package leetcode;
 public class _598 {
 
     public static void main(String[] args) {
-
+        System.out.println(maxCount(3, 3, new int[][]{{2, 2}, {3, 3}, {3, 3}, {3, 3}, {2, 2}, {3, 3}, {3, 3}, {3, 3},
+                                                      {2, 2}, {3, 3}, {3, 3}, {3, 3}}));
+        System.out.println(maxCount(3, 3, new int[][]{}));
     }
 
-    public int maxCount(int m, int n, int[][] ops) {
+    public static int maxCount(int m, int n, int[][] ops) {
+        int mina = m, minb = n;
 
-return -1;
+        for (final int[] op : ops) {
+            mina = Math.min(mina, op[0]);
+            minb = Math.min(minb, op[1]);
+        }
+
+        return mina * minb;
     }
 }
