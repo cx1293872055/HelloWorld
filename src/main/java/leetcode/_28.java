@@ -9,6 +9,7 @@ import java.util.Arrays;
 public class _28 {
 
     public static void main(String[] args) {
+
         System.out.println(strStr1("mississippi", "pi"));
     }
 
